@@ -1,0 +1,1859 @@
+Started GET "/" for ::1 at 2016-03-31 12:22:55 -0400
+Processing by RootController#index as HTML
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar PRIMARY KEY) [0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateCompanies (20160331162454)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "phone" varchar, "email" varchar, "website" varchar, "address" text, "customer_id" varchar, "additional_info" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331162454"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateContacts (20160331162725)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateContacts (20160331162725)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "contacts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "family_name" varchar, "given_names" varchar, "company_id" integer, "title" varchar, "phone" varchar, "email" varchar, "website" varchar, "address" text, "customer_id" varchar, "additional_info" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_on_company_id" ON "contacts" ("company_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331162725"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-03-31 16:28:04 UTC], ["updated_at", 2016-03-31 16:28:04 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+Started GET "/companies" for ::1 at 2016-03-31 12:30:50 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CompaniesController#index as */*
+  [1m[36mCompany Load (0.6ms)[0m  [1m[34mSELECT "companies".* FROM "companies"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with JsonApiDasherized (0.57ms)
+Completed 200 OK in 6ms (Views: 3.9ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 12:32:17 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies?name=Lorem%20Inc.&phone=+1%20(415)%20555-1234&email=contact@lorem.inc&website=lorem.inc&address=123%20Main%20St.\n94102%20San%20Francisco,%20CA.&customer_id=10001&additional_info" for ::1 at 2016-03-31 12:34:42 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>" 1 (415) 555-1234", "email"=>"contact@lorem.inc", "website"=>"lorem.inc", "address"=>"123 Main St.\\n94102 San Francisco, CA.", "customer_id"=>"10001", "additional_info"=>nil}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies?name=Lorem%20Inc.&phone=+1%20(917)%20555-1234&email=holler@lorem.inc&website=www.lorem.inc&address=123%20Madison%20Av.\nNew%20York,%20NY.&customer_id=10001&additional_info" for ::1 at 2016-03-31 12:37:56 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>" 1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\nNew York, NY.", "customer_id"=>"10001", "additional_info"=>nil}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:41:50 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:43:50 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:45:40 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\\n10016 New York, NY."], ["created_at", 2016-03-31 16:45:40 UTC], ["updated_at", 2016-03-31 16:45:40 UTC]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with JsonApiDasherized (1.73ms)
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 3.5ms)
+
+
+  
+NoMethodError (undefined method `singularize' for #<CompanySerializer:0x007fc22daf5e50>):
+  
+config/initializers/active_model_serializers_adapter.rb:12:in `resource_object_for'
+app/controllers/companies_controller.rb:21:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:45:46 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\\n10016 New York, NY."], ["created_at", 2016-03-31 16:45:46 UTC], ["updated_at", 2016-03-31 16:45:46 UTC]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with JsonApiDasherized (4.42ms)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 1.7ms)
+
+
+  
+NoMethodError (undefined method `singularize' for #<CompanySerializer:0x007fc22db95568>):
+  
+config/initializers/active_model_serializers_adapter.rb:12:in `resource_object_for'
+app/controllers/companies_controller.rb:21:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:45:58 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:46:02 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:46:36 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:47:39 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\\n10016 New York, NY.", "costumer_id"=>"10001"}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:49:27 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:49:56 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:50:10 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:51:04 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: company):
+  
+app/controllers/companies_controller.rb:49:in `company_params'
+app/controllers/companies_controller.rb:18:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:51:22 -0400
+Processing by CompaniesController#create as */*
+Completed 400 Bad Request in 9999ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 12:52:03 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "additional_info", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\n10016 New York, NY."], ["additional_info", ""], ["created_at", 2016-03-31 16:52:07 UTC], ["updated_at", 2016-03-31 16:52:07 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with JsonApiDasherized (2.09ms)
+Completed 500 Internal Server Error in 4583ms (ActiveRecord: 2.4ms)
+
+
+  
+NoMethodError (undefined method `singularize' for #<CompanySerializer:0x007fb28944c9b8>):
+  
+config/initializers/active_model_serializers_adapter.rb:12:in `resource_object_for'
+app/controllers/companies_controller.rb:21:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:54:57 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "additional_info", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\n10016 New York, NY."], ["additional_info", ""], ["created_at", 2016-03-31 16:55:00 UTC], ["updated_at", 2016-03-31 16:55:00 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with JsonApiDasherized (1.66ms)
+Completed 500 Internal Server Error in 2711ms (ActiveRecord: 5.3ms)
+
+
+  
+NoMethodError (undefined method `singularize' for #<CompanySerializer:0x007fafb3f911a8>):
+  
+config/initializers/active_model_serializers_adapter.rb:12:in `resource_object_for'
+app/controllers/companies_controller.rb:21:in `create'
+Started POST "/companies" for ::1 at 2016-03-31 12:56:41 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "additional_info", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\n10016 New York, NY."], ["additional_info", ""], ["created_at", 2016-03-31 16:56:41 UTC], ["updated_at", 2016-03-31 16:56:41 UTC]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with ActiveModel::Serializer::Adapter::Attributes (2.71ms)
+Completed 201 Created in 34ms (Views: 6.1ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 12:56:55 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 14ms (Views: 3.3ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 12:57:01 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"name"=>"Lorem Inc.", "phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "companies" ("name", "phone", "email", "website", "address", "additional_info", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["phone", "+1 (917) 555-1234"], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\n10016 New York, NY."], ["additional_info", ""], ["created_at", 2016-03-31 16:57:01 UTC], ["updated_at", 2016-03-31 16:57:01 UTC]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with ActiveModel::Serializer::Adapter::Attributes (0.39ms)
+Completed 201 Created in 7ms (Views: 1.4ms | ActiveRecord: 2.2ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 13:00:07 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"phone"=>"+1 (917) 555-1234", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 32ms (Views: 1.6ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 13:00:34 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"company"=>{"email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>""}}
+Unpermitted parameter: costumer_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 17ms (Views: 2.6ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 13:00:42 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>"", "company"=>{"email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "additional_info"=>""}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 13:00:46 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>"", "company"=>{"email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "additional_info"=>""}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 4ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/companies" for ::1 at 2016-03-31 13:01:03 -0400
+Processing by CompaniesController#create as */*
+  Parameters: {"name"=>"Lorem Inc.", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "costumer_id"=>"10001", "additional_info"=>"", "company"=>{"name"=>"Lorem Inc.", "email"=>"holler@lorem.inc", "website"=>"www.lorem.inc", "address"=>"123 Madison Av.\n10016 New York, NY.", "additional_info"=>""}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "companies" ("name", "email", "website", "address", "additional_info", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lorem Inc."], ["email", "holler@lorem.inc"], ["website", "www.lorem.inc"], ["address", "123 Madison Av.\n10016 New York, NY."], ["additional_info", ""], ["created_at", 2016-03-31 17:01:03 UTC], ["updated_at", 2016-03-31 17:01:03 UTC]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CompanySerializer with ActiveModel::Serializer::Adapter::Attributes (0.48ms)
+Completed 201 Created in 15ms (Views: 2.9ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/contacts" for ::1 at 2016-03-31 13:03:40 -0400
+Error occurred while parsing request parameters.
+Contents:
+
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="family_name"
+
+Smith
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="given_names"
+
+Paul
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="phone"
+
++1 (917) 555-1234
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="company_id"
+
+5
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="title"
+
+Head of Marketing
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="email"
+
+smith@lorem.inc
+------WebKitFormBoundaryRlvmDMoesxZAFfZo--
+
+  
+ActionDispatch::ParamsParser::ParseError (822: unexpected token at '------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="family_name"
+
+Smith
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="given_names"
+
+Paul
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="phone"
+
++1 (917) 555-1234
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="company_id"
+
+5
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="title"
+
+Head of Marketing
+------WebKitFormBoundaryRlvmDMoesxZAFfZo
+Content-Disposition: form-data; name="email"
+
+smith@lorem.inc
+------WebKitFormBoundaryRlvmDMoesxZAFfZo--
+'):
+  
+actionpack (5.0.0.beta3) lib/action_dispatch/http/parameters.rb:71:in `rescue in parse_formatted_parameters'
+actionpack (5.0.0.beta3) lib/action_dispatch/http/parameters.rb:65:in `parse_formatted_parameters'
+actionpack (5.0.0.beta3) lib/action_dispatch/http/request.rb:367:in `block in POST'
+rack (2.0.0.alpha) lib/rack/request.rb:74:in `fetch'
+rack (2.0.0.alpha) lib/rack/request.rb:74:in `fetch_header'
+actionpack (5.0.0.beta3) lib/action_dispatch/http/request.rb:366:in `POST'
+actionpack (5.0.0.beta3) lib/action_controller/metal/params_wrapper.rb:282:in `_wrapper_enabled?'
+actionpack (5.0.0.beta3) lib/action_controller/metal/params_wrapper.rb:231:in `process_action'
+activerecord (5.0.0.beta3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+actionpack (5.0.0.beta3) lib/abstract_controller/base.rb:128:in `process'
+actionpack (5.0.0.beta3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (5.0.0.beta3) lib/action_controller/metal.rb:262:in `dispatch'
+actionpack (5.0.0.beta3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (5.0.0.beta3) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (5.0.0.beta3) lib/action_dispatch/journey/router.rb:39:in `block in serve'
+actionpack (5.0.0.beta3) lib/action_dispatch/journey/router.rb:26:in `each'
+actionpack (5.0.0.beta3) lib/action_dispatch/journey/router.rb:26:in `serve'
+actionpack (5.0.0.beta3) lib/action_dispatch/routing/route_set.rb:724:in `call'
+actionview (5.0.0.beta3) lib/action_view/digestor.rb:12:in `call'
+rack (2.0.0.alpha) lib/rack/etag.rb:25:in `call'
+rack (2.0.0.alpha) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.0.alpha) lib/rack/head.rb:12:in `call'
+activerecord (5.0.0.beta3) lib/active_record/query_cache.rb:36:in `call'
+activerecord (5.0.0.beta3) lib/active_record/connection_adapters/abstract/connection_pool.rb:963:in `call'
+activerecord (5.0.0.beta3) lib/active_record/migration.rb:558:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (5.0.0.beta3) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.0.beta3) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.0.beta3) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/reloader.rb:71:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0.beta3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0.beta3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0.beta3) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0.beta3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0.beta3) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0.beta3) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.0.alpha) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0.beta3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/load_interlock.rb:13:in `call'
+actionpack (5.0.0.beta3) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.0.alpha) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.0) lib/rack/cors.rb:80:in `call'
+railties (5.0.0.beta3) lib/rails/engine.rb:522:in `call'
+puma (3.2.0) lib/puma/configuration.rb:227:in `call'
+puma (3.2.0) lib/puma/server.rb:561:in `handle_request'
+puma (3.2.0) lib/puma/server.rb:406:in `process_client'
+puma (3.2.0) lib/puma/server.rb:271:in `block in run'
+puma (3.2.0) lib/puma/thread_pool.rb:111:in `block in spawn_thread'
+Started POST "/contacts" for ::1 at 2016-03-31 13:05:29 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_name"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"5", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "company_id"=>"5", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+Unpermitted parameter: company_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 33ms (Views: 5.7ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/contacts" for ::1 at 2016-03-31 13:05:41 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"5", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"5", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+Unpermitted parameter: company_id
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/contacts" for ::1 at 2016-03-31 13:05:46 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"6", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"6", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+Unpermitted parameter: company_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+  [1m[36mCompany Load (1.5ms)[0m  [1m[34mSELECT "companies".* FROM "companies"[0m
+Started POST "/contacts" for ::1 at 2016-03-31 13:05:59 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"1", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"1", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+Unpermitted parameter: company_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+
+  [1m[36mCompany Load (0.4ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+Started POST "/contacts" for ::1 at 2016-03-31 13:06:40 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"1", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"1", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+Unpermitted parameter: company_id
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.7ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/contacts" for ::1 at 2016-03-31 13:07:03 -0400
+Processing by ContactsController#create as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"1", "title"=>"Head of Marketing", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"1", "title"=>"Head of Marketing", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCompany Load (0.1ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("family_name", "given_names", "company_id", "title", "phone", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["family_name", "Smith"], ["given_names", "Paul"], ["company_id", 1], ["title", "Head of Marketing"], ["phone", "+1 (917) 555-1234"], ["email", "paul.smith@lorem.inc"], ["created_at", 2016-03-31 17:07:03 UTC], ["updated_at", 2016-03-31 17:07:03 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ContactSerializer with ActiveModel::Serializer::Adapter::Attributes (1.25ms)
+Completed 201 Created in 37ms (Views: 3.9ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/contacts/1" for ::1 at 2016-03-31 13:07:41 -0400
+Processing by ContactsController#show as */*
+  Parameters: {"id"=>"1", "contact"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCompany Load (0.1ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ContactSerializer with ActiveModel::Serializer::Adapter::Attributes (3.0ms)
+Completed 200 OK in 6ms (Views: 3.6ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/contacts/1" for ::1 at 2016-03-31 13:08:05 -0400
+Processing by ContactsController#update as */*
+  Parameters: {"family_name"=>"Smith", "given_names"=>"Paul", "email"=>"paul.smith@lorem.inc", "phone"=>"+1 (917) 555-1234", "company_id"=>"2", "title"=>"CMO", "id"=>"1", "contact"=>{"family_name"=>"Smith", "given_names"=>"Paul", "company_id"=>"2", "title"=>"CMO", "phone"=>"+1 (917) 555-1234", "email"=>"paul.smith@lorem.inc"}}
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCompany Load (0.1ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "contacts" SET "company_id" = ?, "title" = ?, "updated_at" = ? WHERE "contacts"."id" = ?[0m  [["company_id", 2], ["title", "CMO"], ["updated_at", 2016-03-31 17:08:05 UTC], ["id", 1]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ContactSerializer with ActiveModel::Serializer::Adapter::Attributes (0.91ms)
+Completed 200 OK in 12ms (Views: 1.7ms | ActiveRecord: 1.9ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateProjects (20160331171108)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "status" integer DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331171108"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateContactsProjects (20160331171327)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "contacts_projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "contacts_id" integer, "projects_id" integer) [0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_projects_on_contacts_id" ON "contacts_projects" ("contacts_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_projects_on_projects_id" ON "contacts_projects" ("projects_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331171327"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTasks (20160331171512)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar, "status" integer DEFAULT 0, "project_id" integer, "due_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_tasks_on_project_id" ON "tasks" ("project_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331171512"]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+Started GET "/projects" for ::1 at 2016-03-31 13:18:58 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as */*
+  Parameters: {"project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::Attributes (0.09ms)
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/projects" for ::1 at 2016-03-31 13:23:52 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: project):
+  
+app/controllers/projects_controller.rb:49:in `project_params'
+app/controllers/projects_controller.rb:18:in `create'
+Started POST "/projects" for ::1 at 2016-03-31 13:25:59 -0400
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-03-31 17:25:59 UTC], ["updated_at", 2016-03-31 17:25:59 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers]   [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::Attributes (41.03ms)
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 2.9ms)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such column: contacts_projects.project_id: SELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?):
+  
+app/controllers/projects_controller.rb:21:in `create'
+Started POST "/projects" for ::1 at 2016-03-31 13:26:39 -0400
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-03-31 17:26:51 UTC], ["updated_at", 2016-03-31 17:26:51 UTC]]
+  [1m[35m (3.9ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers]   [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 2]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::Attributes (12.1ms)
+Completed 500 Internal Server Error in 11640ms (ActiveRecord: 5.8ms)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such column: contacts_projects.project_id: SELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?):
+  
+app/controllers/projects_controller.rb:21:in `create'
+Started POST "/projects" for ::1 at 2016-03-31 13:27:28 -0400
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-03-31 17:28:00 UTC], ["updated_at", 2016-03-31 17:28:00 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers]   [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 3]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::Attributes (2.47ms)
+Completed 500 Internal Server Error in 31797ms (ActiveRecord: 1.3ms)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such column: contacts_projects.project_id: SELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?):
+  
+app/controllers/projects_controller.rb:21:in `create'
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTasks (20160331171512)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE "tasks"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20160331171512"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_projects_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contacts_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateContactsProjects (20160331171327)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "contacts_projects"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20160331171327"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateContactsProjects (20160331171327)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "contacts_projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "contact_id" integer, "project_id" integer) [0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_projects_on_contact_id" ON "contacts_projects" ("contact_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_projects_on_project_id" ON "contacts_projects" ("project_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331171327"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateTasks (20160331171512)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar, "status" integer DEFAULT 0, "project_id" integer, "due_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_tasks_on_project_id" ON "tasks" ("project_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160331171512"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (1.6ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+Started POST "/projects" for ::1 at 2016-03-31 13:32:28 -0400
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-03-31 17:32:31 UTC], ["updated_at", 2016-03-31 17:32:31 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers]   [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers]   [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::Attributes (36.09ms)
+Completed 201 Created in 3091ms (Views: 36.2ms | ActiveRecord: 4.1ms)
+
+
+Started POST "/projects" for ::1 at 2016-03-31 14:02:06 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-03-31 18:02:06 UTC], ["updated_at", 2016-03-31 18:02:06 UTC]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ProjectSerializer with JsonApiDasherized (1.79ms)
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 4.2ms)
+
+
+  
+NoMethodError (undefined method `singularize' for #<ProjectSerializer:0x007fe773a977b8>):
+  
+config/initializers/active_model_serializer_adapter.rb:12:in `resource_object_for'
+app/controllers/projects_controller.rb:20:in `create'
+Started GET "/projects" for ::1 at 2016-04-01 09:37:50 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as */*
+  Parameters: {"project"=>{}}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 1.3ms)
+
+
+  
+ActiveModel::Serializer::Adapter::UnknownAdapterError (NameError: ActiveModel::Serializer::Adapter::UnknownAdapterError. Unknown adapter: :json_api_dasherized. Valid adapters are: ["attributes", "json", "json_api", "null"]):
+  
+app/controllers/projects_controller.rb:8:in `index'
+Started GET "/projects" for ::1 at 2016-04-01 09:38:13 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as */*
+  Parameters: {"project"=>{}}
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+[active_model_serializers]   [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 2]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 2]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 3]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 3]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 5]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 5]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (76.49ms)
+Completed 200 OK in 85ms (Views: 81.0ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 09:38:44 -0400
+Processing by ContactsController#index as */*
+  Parameters: {"contact"=>{}}
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.5ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (34.16ms)
+Completed 200 OK in 49ms (Views: 46.5ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/companies" for ::1 at 2016-04-01 09:39:03 -0400
+Processing by CompaniesController#index as */*
+  Parameters: {"company"=>{}}
+  [1m[36mCompany Load (0.2ms)[0m  [1m[34mSELECT "companies".* FROM "companies"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (4.7ms)
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for ::1 at 2016-04-01 10:17:11 -0400
+Processing by ProjectsController#index as */*
+  Parameters: {"project"=>{}}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+[active_model_serializers]   [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 2]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 2]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 3]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 3]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 4]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 5]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 5]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (56.11ms)
+Completed 200 OK in 75ms (Views: 70.3ms | ActiveRecord: 3.8ms)
+
+
+  [1m[36mProject Load (1.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects"[0m
+Started PATCH "/projects/1" for ::1 at 2016-04-01 10:57:24 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 1.8ms)
+
+
+  
+NoMethodError (undefined method `each' for nil:NilClass):
+  
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 10:57:53 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.8ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 2.7ms)
+
+
+  
+TypeError (no implicit conversion of Symbol into Integer):
+  
+app/controllers/application_controller.rb:18:in `[]'
+app/controllers/application_controller.rb:18:in `find_related_object'
+app/controllers/application_controller.rb:9:in `block in relationship_params'
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 10:58:58 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 1.9ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70260340529860) expected, got String(#70260313464940)):
+  
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 10:59:53 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Unpermitted parameter: satatus
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (4.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+DEPRECATION WARNING: Method count is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters` no longer inherits from hash. Using this deprecated behavior exposes potential security problems. If you continue to use this method you may be creating a security vulnerability in your app that can be exploited. Instead, consider using one of these documented methods which are not deprecated: http://api.rubyonrails.org/v5.0.0.beta3/classes/ActionController/Parameters.html. (called from update at (byebug):1)
+DEPRECATION WARNING: Method first is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters` no longer inherits from hash. Using this deprecated behavior exposes potential security problems. If you continue to use this method you may be creating a security vulnerability in your app that can be exploited. Instead, consider using one of these documented methods which are not deprecated: http://api.rubyonrails.org/v5.0.0.beta3/classes/ActionController/Parameters.html. (called from update at (byebug):1)
+DEPRECATION WARNING: Method first is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters` no longer inherits from hash. Using this deprecated behavior exposes potential security problems. If you continue to use this method you may be creating a security vulnerability in your app that can be exploited. Instead, consider using one of these documented methods which are not deprecated: http://api.rubyonrails.org/v5.0.0.beta3/classes/ActionController/Parameters.html. (called from update at (byebug):1)
+DEPRECATION WARNING: Method first is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters` no longer inherits from hash. Using this deprecated behavior exposes potential security problems. If you continue to use this method you may be creating a security vulnerability in your app that can be exploited. Instead, consider using one of these documented methods which are not deprecated: http://api.rubyonrails.org/v5.0.0.beta3/classes/ActionController/Parameters.html. (called from update at (byebug):1)
+DEPRECATION WARNING: Method first is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters` no longer inherits from hash. Using this deprecated behavior exposes potential security problems. If you continue to use this method you may be creating a security vulnerability in your app that can be exploited. Instead, consider using one of these documented methods which are not deprecated: http://api.rubyonrails.org/v5.0.0.beta3/classes/ActionController/Parameters.html. (called from update at (byebug):1)
+  [1m[36mCACHE (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 792968ms (ActiveRecord: 6.2ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70260330343620) expected, got String(#70260313464940)):
+  
+app/controllers/projects_controller.rb:33:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:13:10 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCompany Load (0.3ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "contacts_projects" ("contact_id", "project_id") VALUES (?, ?)[0m  [["contact_id", 1], ["project_id", 1]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (14.08ms)
+Completed 200 OK in 2681ms (Views: 15.1ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/projects/1" for ::1 at 2016-04-01 11:14:05 -0400
+Processing by ProjectsController#show as */*
+  Parameters: {"id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (36.13ms)
+Completed 200 OK in 43ms (Views: 35.1ms | ActiveRecord: 3.2ms)
+
+
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:14:15 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"2"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Completed 404 Not Found in 6ms (ActiveRecord: 0.6ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Contact with 'id'=2):
+  
+app/controllers/application_controller.rb:19:in `find_related_object'
+app/controllers/application_controller.rb:7:in `block (2 levels) in relationship_params'
+app/controllers/application_controller.rb:7:in `map'
+app/controllers/application_controller.rb:7:in `block in relationship_params'
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:14:24 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"3"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+Completed 404 Not Found in 5ms (ActiveRecord: 0.5ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Contact with 'id'=3):
+  
+app/controllers/application_controller.rb:19:in `find_related_object'
+app/controllers/application_controller.rb:7:in `block (2 levels) in relationship_params'
+app/controllers/application_controller.rb:7:in `map'
+app/controllers/application_controller.rb:7:in `block in relationship_params'
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:14:28 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (4.88ms)
+Completed 200 OK in 14ms (Views: 5.4ms | ActiveRecord: 0.8ms)
+
+
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:14:55 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}, "tasks"=>{"data"=>[{"type"=>"task", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 404 Not Found in 8ms (ActiveRecord: 1.4ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Task with 'id'=1):
+  
+app/controllers/application_controller.rb:19:in `find_related_object'
+app/controllers/application_controller.rb:7:in `block (2 levels) in relationship_params'
+app/controllers/application_controller.rb:7:in `map'
+app/controllers/application_controller.rb:7:in `block in relationship_params'
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" ORDER BY "projects"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "tasks" ("project_id", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["project_id", 1], ["created_at", 2016-04-01 15:15:47 UTC], ["updated_at", 2016-04-01 15:15:47 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:15:53 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}, "tasks"=>{"data"=>[{"type"=>"task", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (6.2ms)
+Completed 200 OK in 29ms (Views: 6.6ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/projects/1" for ::1 at 2016-04-01 11:16:02 -0400
+Processing by ProjectsController#show as */*
+  Parameters: {"id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (10.88ms)
+Completed 200 OK in 13ms (Views: 11.3ms | ActiveRecord: 0.5ms)
+
+
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:16:35 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (1.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 1.4ms)
+
+
+  
+NoMethodError (undefined method `each' for nil:NilClass):
+  
+app/controllers/application_controller.rb:5:in `relationship_params'
+app/controllers/projects_controller.rb:32:in `update'
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:16:48 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers]   [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (8.66ms)
+Completed 200 OK in 13ms (Views: 8.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/projects/1" for ::1 at 2016-04-01 11:16:54 -0400
+Processing by ProjectsController#show as */*
+  Parameters: {"id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers]   [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (8.73ms)
+Completed 200 OK in 11ms (Views: 9.0ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/projects/1" for ::1 at 2016-04-01 11:18:21 -0400
+Processing by ProjectsController#update as */*
+  Parameters: {"data"=>{"id"=>1, "type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}, "tasks"=>{"data"=>[{"type"=>"tasks", "id"=>"1"}]}}}, "id"=>"1", "project"=>{}}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: satatus
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts" INNER JOIN "contacts_projects" ON "contacts"."id" = "contacts_projects"."contact_id" WHERE "contacts_projects"."project_id" = ?[0m  [["project_id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "tasks".* FROM "tasks" WHERE "tasks"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."project_id" = ?[0m  [["project_id", 1]]
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (7.05ms)
+Completed 200 OK in 53ms (Views: 8.4ms | ActiveRecord: 3.3ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOffers (20160401152657)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "offers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "price" float, "status" integer DEFAULT 0, "valid_until" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160401152657"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateContactsOffers (20160401153447)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "contacts_offers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "contact_id" integer, "offer_id" integer) [0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_offers_on_contact_id" ON "contacts_offers" ("contact_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_contacts_offers_on_offer_id" ON "contacts_offers" ("offer_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160401153447"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.9ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateNotes (20160401155237)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar, "title" varchar, "description" text, "contact_id" integer, "topic_type" varchar, "topic_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_notes_on_contact_id" ON "notes" ("contact_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_notes_on_topic_type_and_topic_id" ON "notes" ("topic_type", "topic_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160401155237"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_notes_on_topic_type_and_topic_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_notes_on_topic_type_and_topic_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+Started POST "/notes" for ::1 at 2016-04-01 12:04:42 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.3ms)
+
+
+  
+NoMethodError (undefined method `titlecasse' for "general-note":String
+Did you mean?  titlecase):
+  
+app/controllers/notes_controller.rb:18:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 12:05:12 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.5ms)
+
+
+  
+NameError (wrong constant name General Note):
+  
+app/controllers/notes_controller.rb:18:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 12:17:42 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Unpermitted parameter: content
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 46ms (Views: 2.1ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 12:20:03 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Unpermitted parameter: content
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.8ms)[0m  [1m[32mINSERT INTO "notes" ("type", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["type", "GeneralNote"], ["created_at", 2016-04-01 16:20:03 UTC], ["updated_at", 2016-04-01 16:20:03 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Completed 500 Internal Server Error in 55ms (ActiveRecord: 4.0ms)
+
+
+  
+NoMethodError (undefined method `general_note_url' for #<NotesController:0x007fb97c461c60>):
+  
+app/controllers/notes_controller.rb:22:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 12:23:26 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Unpermitted parameter: content
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "notes" ("type", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["type", "GeneralNote"], ["created_at", 2016-04-01 16:23:26 UTC], ["updated_at", 2016-04-01 16:23:26 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered NoteSerializer with ActiveModel::Serializer::Adapter::JsonApi (7.97ms)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 2.9ms)
+
+
+  
+NoMethodError (undefined method `contact' for #<GeneralNote:0x007fb97ca28b08>
+Did you mean?  contact_id):
+  
+app/controllers/notes_controller.rb:22:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 12:33:00 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"content"=>"Lorem Ipsum"}}, "note"=>{}}
+Unpermitted parameter: content
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "notes" ("type", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["type", "GeneralNote"], ["created_at", 2016-04-01 16:33:01 UTC], ["updated_at", 2016-04-01 16:33:01 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered NoteSerializer with ActiveModel::Serializer::Adapter::JsonApi (9.11ms)
+Completed 201 Created in 66ms (Views: 12.9ms | ActiveRecord: 4.1ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 12:34:11 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"general-notes", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}}, "note"=>{}}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["type", "GeneralNote"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["created_at", 2016-04-01 16:34:11 UTC], ["updated_at", 2016-04-01 16:34:11 UTC]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered NoteSerializer with ActiveModel::Serializer::Adapter::JsonApi (1.26ms)
+Completed 201 Created in 11ms (Views: 2.1ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 12:39:35 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["created_at", 2016-04-01 16:39:35 UTC], ["updated_at", 2016-04-01 16:39:35 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered NoteSerializer with ActiveModel::Serializer::Adapter::JsonApi (1.1ms)
+Completed 201 Created in 28ms (Views: 2.0ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:00:15 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["created_at", 2016-04-01 17:00:15 UTC], ["updated_at", 2016-04-01 17:00:15 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (41.44ms)
+Completed 201 Created in 76ms (Views: 47.0ms | ActiveRecord: 3.8ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:17:05 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 1.6ms)
+
+
+  
+NoMethodError (undefined method `relatioship_params' for #<NotesController:0x007fb97c9d1e98>
+Did you mean?  relationship_params):
+  
+app/controllers/notes_controller.rb:20:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:17:33 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 1.1ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 1, expected 0)):
+  
+app/controllers/application_controller.rb:3:in `relationship_params'
+app/controllers/notes_controller.rb:20:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:17:57 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.7ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["created_at", 2016-04-01 17:17:57 UTC], ["updated_at", 2016-04-01 17:17:57 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (4.61ms)
+Completed 201 Created in 57ms (Views: 7.1ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:18:20 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.2ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70217310775240) expected, got Array(#70217317541880)):
+  
+app/controllers/notes_controller.rb:21:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:18:43 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["created_at", 2016-04-01 17:18:43 UTC], ["updated_at", 2016-04-01 17:18:43 UTC]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (0.93ms)
+Completed 201 Created in 9ms (Views: 1.5ms | ActiveRecord: 1.8ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:18:50 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.2ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70217310775240) expected, got Array(#70217317541880)):
+  
+app/controllers/notes_controller.rb:21:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:19:45 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 1.1ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 1, expected 0)):
+  
+app/controllers/application_controller.rb:3:in `relationship_params'
+app/controllers/notes_controller.rb:20:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:24:35 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 1.8ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70108390680100) expected, got Array(#70108391524340)):
+  
+app/controllers/notes_controller.rb:21:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:28:14 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 2.5ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70108424837620) expected, got Array(#70108391524340)):
+  
+app/controllers/notes_controller.rb:21:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:28:32 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.7ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 154163ms (ActiveRecord: 2.6ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70108393842760) expected, got Array(#70108391524340)):
+  
+app/controllers/notes_controller.rb:22:in `create'
+Started POST "/notes" for ::1 at 2016-04-01 13:31:10 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 67658ms (ActiveRecord: 1.9ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Contact(#70108424717480) expected, got Array(#70108391524340)):
+  
+app/controllers/notes_controller.rb:22:in `create'
+Started POST "/projects" for ::1 at 2016-04-01 13:32:55 -0400
+Processing by ProjectsController#create as */*
+  Parameters: {"data"=>{"type"=>"project", "attributes"=>{"name"=>"Awesome Project", "satatus"=>0}, "relationships"=>{"contacts"=>{"data"=>[{"type"=>"contact", "id"=>"1"}]}}}, "project"=>{}}
+Unpermitted parameter: satatus
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCompany Load (0.5ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "projects" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Awesome Project"], ["created_at", 2016-04-01 17:33:59 UTC], ["updated_at", 2016-04-01 17:33:59 UTC]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "contacts_projects" ("contact_id", "project_id") VALUES (?, ?)[0m  [["contact_id", 1], ["project_id", 6]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ProjectSerializer with ActiveModel::Serializer::Adapter::JsonApi (16.72ms)
+Completed 201 Created in 63903ms (Views: 18.6ms | ActiveRecord: 5.4ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:34:04 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "contact_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["contact_id", 1], ["created_at", 2016-04-01 17:34:04 UTC], ["updated_at", 2016-04-01 17:34:04 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (5.91ms)
+Completed 201 Created in 58ms (Views: 8.6ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:38:29 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "contact_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["contact_id", 1], ["created_at", 2016-04-01 17:38:29 UTC], ["updated_at", 2016-04-01 17:38:29 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (8.33ms)
+Completed 201 Created in 71ms (Views: 14.8ms | ActiveRecord: 3.2ms)
+
+
+Started POST "/notes" for ::1 at 2016-04-01 13:38:34 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"phone-call", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "contact_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["type", "PhoneCall"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["contact_id", 1], ["created_at", 2016-04-01 17:38:34 UTC], ["updated_at", 2016-04-01 17:38:34 UTC]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PhoneCallSerializer with ActiveModel::Serializer::Adapter::JsonApi (1.31ms)
+Completed 201 Created in 12ms (Views: 2.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 13:39:16 -0400
+Processing by ContactsController#index as */*
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.3ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers]   [1m[36mOffer Load (0.2ms)[0m  [1m[34mSELECT "offers".* FROM "offers" INNER JOIN "contacts_offers" ON "offers"."id" = "contacts_offers"."offer_id" WHERE "contacts_offers"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (93.33ms)
+Completed 200 OK in 96ms (Views: 92.2ms | ActiveRecord: 3.1ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 13:41:02 -0400
+Processing by ContactsController#index as */*
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.1ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers]   [1m[36mOffer Load (0.2ms)[0m  [1m[34mSELECT "offers".* FROM "offers" INNER JOIN "contacts_offers" ON "offers"."id" = "contacts_offers"."offer_id" WHERE "contacts_offers"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (10.91ms)
+Completed 200 OK in 13ms (Views: 12.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/notes" for ::1 at 2016-04-01 13:41:25 -0400
+Processing by NotesController#index as */*
+  [1m[36mNote Load (0.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (19.21ms)
+Completed 200 OK in 35ms (Views: 33.8ms | ActiveRecord: 0.4ms)
+
+
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mNote Load (0.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."contact_id" = ?[0m  [["contact_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."contact_id" = ?[0m  [["contact_id", 1]]
+Started POST "/notes" for ::1 at 2016-04-01 13:43:16 -0400
+Processing by NotesController#create as */*
+  Parameters: {"data"=>{"type"=>"personal-conversation", "attributes"=>{"description"=>"Lorem Ipsum", "title"=>"Lorem Title"}, "relationships"=>{"contact"=>{"data"=>[{"type"=>"contacts", "id"=>"1"}]}}}, "note"=>{}}
+  [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "notes" ("type", "title", "description", "contact_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["type", "PersonalConversation"], ["title", "Lorem Title"], ["description", "Lorem Ipsum"], ["contact_id", 1], ["created_at", 2016-04-01 17:43:16 UTC], ["updated_at", 2016-04-01 17:43:16 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered PersonalConversationSerializer with ActiveModel::Serializer::Adapter::JsonApi (7.58ms)
+Completed 201 Created in 32ms (Views: 9.6ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/notes" for ::1 at 2016-04-01 13:43:22 -0400
+Processing by NotesController#index as */*
+  [1m[36mNote Load (0.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+[active_model_serializers]   [1m[36mContact Load (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.1ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (16.77ms)
+Completed 200 OK in 20ms (Views: 18.9ms | ActiveRecord: 0.5ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."contact_id" = ?[0m  [["contact_id", 1]]
+Started GET "/notes" for ::1 at 2016-04-01 13:44:59 -0400
+Processing by NotesController#index as */*
+  [1m[36mNote Load (0.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (15.75ms)
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 1.0ms)
+
+
+  
+ArgumentError (Unknown key: :polymorphic. Valid keys are: :class_name, :anonymous_class, :foreign_key, :validate, :autosave, :table_name, :before_add, :after_add, :before_remove, :after_remove, :extend, :primary_key, :dependent, :as, :through, :source, :source_type, :inverse_of, :counter_cache, :join_table, :foreign_type, :index_errors):
+  
+app/models/contact.rb:5:in `<class:Contact>'
+app/models/contact.rb:1:in `<top (required)>'
+app/controllers/notes_controller.rb:8:in `index'
+Started GET "/notes" for ::1 at 2016-04-01 13:53:50 -0400
+Processing by NotesController#index as */*
+  [1m[36mNote Load (0.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes"[0m
+[active_model_serializers]   [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (47.11ms)
+Completed 200 OK in 86ms (Views: 81.5ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 13:53:57 -0400
+Processing by ContactsController#index as */*
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.2ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers]   [1m[36mOffer Load (0.1ms)[0m  [1m[34mSELECT "offers".* FROM "offers" INNER JOIN "contacts_offers" ON "offers"."id" = "contacts_offers"."offer_id" WHERE "contacts_offers"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (62.48ms)
+Completed 200 OK in 65ms (Views: 61.9ms | ActiveRecord: 2.3ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAuthTokens (20160401184748)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "auth_tokens" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "token" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160401184748"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" ORDER BY "ar_internal_metadata"."key" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_on_company_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_offer_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_offers_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_project_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_contacts_projects_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_notes_on_topic_type_and_topic_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_notes_on_topic_type_and_topic_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_notes_on_contact_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tasks_on_project_id' AND type='index'
+[0m
+Started GET "/contacts" for ::1 at 2016-04-01 14:54:58 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ContactsController#index as */*
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "auth_tokens" WHERE "auth_tokens"."token" IS NULL[0m
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 12ms (Views: 2.8ms | ActiveRecord: 2.0ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("email", "token", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test@email.com"], ["token", "some-token"], ["created_at", 2016-04-01 18:56:19 UTC], ["updated_at", 2016-04-01 18:56:19 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/contacts" for ::1 at 2016-04-01 14:57:20 -0400
+Processing by ContactsController#index as */*
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "auth_tokens" WHERE "auth_tokens"."token" = ?[0m  [["token", "some-token"]]
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.5ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (1.0ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers]   [1m[36mOffer Load (0.5ms)[0m  [1m[34mSELECT "offers".* FROM "offers" INNER JOIN "contacts_offers" ON "offers"."id" = "contacts_offers"."offer_id" WHERE "contacts_offers"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (65.4ms)
+Completed 200 OK in 93ms (Views: 80.8ms | ActiveRecord: 6.1ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 14:57:27 -0400
+Processing by ContactsController#index as */*
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "auth_tokens" WHERE "auth_tokens"."token" IS NULL[0m
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/contacts" for ::1 at 2016-04-01 14:57:30 -0400
+Processing by ContactsController#index as */*
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "auth_tokens" WHERE "auth_tokens"."token" = ?[0m  [["token", "some-token"]]
+  [1m[36mContact Load (0.2ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+[active_model_serializers]   [1m[36mCompany Load (0.5ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" INNER JOIN "contacts_projects" ON "projects"."id" = "contacts_projects"."project_id" WHERE "contacts_projects"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers]   [1m[36mOffer Load (0.2ms)[0m  [1m[34mSELECT "offers".* FROM "offers" INNER JOIN "contacts_offers" ON "offers"."id" = "contacts_offers"."offer_id" WHERE "contacts_offers"."contact_id" = ?[0m  [["contact_id", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModel::Serializer::Adapter::JsonApi (15.55ms)
+Completed 200 OK in 20ms (Views: 16.8ms | ActiveRecord: 1.2ms)
+
+
